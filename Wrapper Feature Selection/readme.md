@@ -1,13 +1,5 @@
 # this is a sub-directory of Nature-Inspired Algorithms repository in order to see the full list of algorithms please go to https://github.com/shahind/Nature-Inspired-Algorithms
 
-# Jx-WFST : A Wrapper Feature Selection Toolbox
----
-> "Toward Talent Scientist: Sharing and Learning Together"
->  --- [Jingwei Too](https://jingweitoo.wordpress.com/)
----
-
-![Wheel](https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/5dc2bdb4-ce4b-4e0e-bd6e-0237ff6ddde1/f9a9e760-64b9-4e31-9903-dffcabdf8be6/images/1607601518.JPG)
-
 
 ## Introduction
 
