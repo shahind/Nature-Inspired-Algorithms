@@ -1,0 +1,135 @@
+Input: N: the population size;
+D: the problem dimension;
+Li
+: the lower bound of the ith variable (i = 1, 2, · · · , D);
+Ui
+: the upper bound of the ith variable (i = 1, 2, · · · , D);
+τ: the flowing step parameter;
+Max Flow Number: the maximum number of flowing;
+ηc: the distribution index of SBX;
+pc: the crossover rate of SBX;
+pt
+: the called probability of raindrop flowing operator;
+Max FES: the maximum number of function evaluations;
+RP: the raindrop pool.
+01 t = 0;
+02 Generate an initial population: Vapor(0) = {Vapor1
+(0), Vapor2
+(0), · · · , VaporN
+(0)} by uniform random initialization within the feasible solution space;
+03 Evaluate the objective function values: F(Vapor1
+(0)), F(Vapor2
+(0)), · · · , F(VaporN
+(0));
+04 Add the non-dominated solutions of initial population to RP;
+05 Compute the center point of search space:( L1+U1
+2
+,
+L2+U2
+2
+, · · · ,
+LD+UD
+2
+) and its objective value;
+06 FES = N+1;
+07 while FES ≤ Max FES do
+08 Randomly replace one member of current population by the center point of search space; % CPSS operation–Section 4.1
+09 Raindrop(t) = (
+1
+N
+∑N
+i=1
+Vapori
+1
+(t),
+1
+N
+∑N
+i=1
+Vapori
+2
+(t), · · · ,
+1
+N
+∑N
+i=1
+Vapori
+D
+(t)); % Raindrop generation operation–Eq.(5)
+10 Trail(t) = Raindrop(t);
+11 Randomly select an index: d ∈ {1, 2, · · · , D};
+12 T raild(t) = Ld + rand · (Ud − Ld ); % Raindrop descent operation–Eq.(6)
+13 if (F(Trail(t)) dominates F(Raindrop(t))) or (F(Trail(t)) and F(Raindrop(t)) are non-dominant & rand < 0.5)
+14 New Raindrop(t) = Trail(t);
+15 else
+16 New Raindrop(t) = Raindrop(t);
+17 end if
+18 FES = FES + 2;
+19 for i = 1 : N do
+20 Randomly select an index: k ∈ {1, 2, · · · , N};
+21 for j = 1 : D do % Raindrop collision operation–Eq.(7)
+22 Small Raindrop(j)
+i
+(t) = New Raindrop(j)
+(t) + sign(α − 0.5) · log(β) · (New Raindrop(j)
+(t) − Vapor(j)
+k
+(t));
+23 end for
+24 FES = FES + 1;
+25 end for
+26 for i = 1 : N do
+27 Flow Number = 0;
+28 while Flow Number ≤ Max Flow Number
+29 if rand < pt
+30 Randomly select two indexes: k1, k2 ∈ |RP|;
+31 Determine the flowing direction di(t) = τ · rand1i
+· (RPk1
+(t) − Small Raindropi
+(t)) + τ · rand2i
+· (RPk2
+(t) − Small Raindropi
+(t));
+32 New Small Raindropi
+(t) = Small Raindropi
+(t) + di(t); % Raindrop flow operator–Eq.(11)
+33 else
+34 Randomly choose two indexes: k3, k4 ∈ {1, 2, · · · , N};
+35 New Small Raindropi
+(t) = SBX(Vapork1
+(t), Vapork2
+(t)); % Simulated binary crossover
+36 end
+37 FES = FES + 1;
+38 if (F(New Small Raindropi
+(t)) dominates F(Small Raindropi
+(t))) or (F(New Small Raindropi
+(t))
+and F(Small Raindropi
+(t))
+are non-dominant & rand < 0.5)
+39 Small Raindropi
+(t) = New Small Raindropi
+(t);
+40 Flow Number = Flow Number + 1;
+41 else
+42 break;
+43 end if
+44 end while
+45 end for
+46 Select Vapor(t+1) from New Small Raindrop(t)
+∪
+Vapor(t) using non-dominated sorting approach and minimum distance selection strategy;
+47 for i = 1 : N do % Updating of RP
+48 Remove all the elements dominated by F(New Small Raindropi
+) in RP;
+49 Add F(New Small Raindropi
+) to RP if no element in RP dominates F(New Small Raindropi
+);
+50 if |RP| > N
+51 Remove the redundant solution with minimum distance in RP;
+52 end if
+53 end for
+54 t = t + 1;
+55 end while
+Output: RP.
