@@ -1,0 +1,38 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>ABO VRP - {% block title %}{% endblock %}</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+  {% block css %}{% endblock %}
+
+</head>
+
+<body>
+
+  <header>
+    {% include "header.html" %}
+  </header>
+
+  <div id="main" role="main">
+    {% block main %}{% endblock %}
+  </div>
+
+  <footer>
+    {% include "footer.html" %}
+  </footer>
+
+
+  <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Additional JavaScript libraries and plugins... -->
+  {% block js %}{% endblock %}
+
+</body>
+</html>
