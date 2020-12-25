@@ -1,0 +1,23 @@
+Randomly initialize an ecosystem Xi ( solutions) and caculate the
+fitness Fiti, and Xbest= the best solution found so far.
+While the stop criterion is not satisfied do
+//Production//
+For individual X1, update its solution using equation (1).
+//Consumption//
+For individual Xi (i=2,...,n),
+// Herbivore //
+Ifrand<1/3 then update its solution using equation (6),
+// Omnivore //
+Else If 1/3 <= rand <= 2/3 then update its solution using equation (7),
+// Carnivore //
+Else update its solution using equation (8),
+ End If.
+End If.
+Caculate the fitness of each individual.
+Update the best solution found so far Xbest.
+// Decomposition//
+Update the position of each individual using equation (9).
+Caculate the fitness of each individual.
+Update the best solution found so far Xbest.
+End While.
+Return Xbest.
