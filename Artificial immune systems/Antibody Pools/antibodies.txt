@@ -1,0 +1,346 @@
+what time is it  (1.1)
+time what it is
+is time what it
+is what time it
+it what time is
+it time is what
+it is what time
+it what is time
+it time what is
+it is time what
+time what is it
+time it what is
+
+
+
+pick your first stick (2.1)
+pick first stick your
+pick stick your first
+your pick first stick
+your first pick stick
+your stick pick first
+first pick your stick
+first your pick stick
+first stick pick your
+stick first pick your
+stick pick first your
+stick your first pick
+
+
+tell me about it (3.1)
+tell about me it
+tell it about me
+tell it me about
+me tell about it
+me about tell it
+me it tell about
+me about it tell
+about tell me it
+about me tell it
+about it tell me
+about it me tell
+it tell about me
+it about me tell
+it me tell about
+it me about tell
+
+
+what an amazing car (5.1)
+what car an amazing
+what amazing an car
+what car amazing an
+car amazing what an
+car what an amazing
+car an amazing what
+car an what amazing
+amazing what car an
+amazing what an car
+amazing car what an
+amazing car an what
+an car amazing what
+an car what amazing
+an amazing what car
+an what car amazing
+an what amazing car
+
+
+hey how are you (7.1)
+hey are you how
+hey you are how
+are you hey how
+are hey how you
+are how you hey
+how you are hey
+how hey are you
+how are you hey
+how are hey you
+you are how hey
+you are hey how
+you how hey are
+you how are hey
+
+
+i bought a car (4.1)
+i car a bought
+i a bought car
+bought a car i
+bought car a i
+bought i a car
+car a bought i
+car bought a i
+car i bought a
+a car bought i
+a bought i car
+a i car bought
+
+
+dude lets do it (9.1) 
+dude do it lets
+dude it lets do
+lets dude do it
+lets do dude it
+lets it dude do
+do it lets dude
+do it dude lets
+do lets dude it
+it lets do dude
+it do dude lets
+it dude lets do
+
+
+give me that pen (6.1)
+give that pen me
+give pen me that
+me give that pen
+me pen give that
+me that give pen
+pen give me that
+pen me give that
+pen that give me
+that pen give me
+that me give pen
+that give pen me
+
+did you bought car (4.2)
+did bought car you
+did car bought you
+you did bought car
+you bought car did
+you car bought did
+bought car did you
+bought did you car
+bought car did you
+car bought did you
+car did bought you
+car you bought did
+
+take me in car (5.2)
+take in me car
+take car in me
+me take in car
+me car in take
+me in take car
+in car take me
+in take car me
+in me take car
+car take me in
+car me take in
+car in take me
+
+
+does it make sense(8.1)
+does make it sense
+does sense make it
+sense make it does
+sense it does make
+sense does make it
+it does make sense
+it make does sense
+it sense does make
+make sense it does
+make does it sense
+make it sense does
+
+
+trying other new cars (9.2)
+trying new car others
+trying others new car
+others car trying new
+others trying new car
+others new trying car
+new car trying others
+new trying others car
+new others trying car
+car others trying new
+car trying others new
+car new try others
+
+
+I have to go  (1.2)
+I to have go
+I go to have
+have I go to
+have to go I
+have go I to
+go have I to
+go to I have
+go I have to
+to go have I
+to have I go
+to I go have
+
+
+And then tell me (2.2)
+And tell me then
+And me then tell
+then tell me And
+then me And tell
+then And tell me
+tell me And then
+tell then And me
+tell me then And
+me then tell And
+me tell then And
+me And then tell
+
+
+How much you care (3.2)
+How care you much
+How you much care
+care you much How
+care much How you
+care How you much
+much care you How
+much you care How
+much How you care
+you care How much
+you much care How
+you How much care 
+
+this pen is amazing   (6.2)
+this is amazing pen
+this amazing is pen
+pen amazing is this
+pen this is amazing
+pen is amazing this
+is this amazing pen
+is pen amazing this
+is amazing pen this
+amazing pen is this
+amazing is this pen
+amazing this is pen
+
+you look amazing today (7.2)
+you amazing look today
+you today look amazing
+today you look amazing
+today amazing you look
+today look you amazing
+amazing today you look
+amazing look you today
+amazing you look today
+look amazing you today
+look you amazing today
+look amazing you today
+
+to do it dude (8.2)
+to it do dude
+to dude do it
+dude it to do
+dude to do it
+dude it to do
+it to do dude
+it do to dude
+it dude to do
+
+dude i am sorry (10.1)
+dude sorry i am
+dude am i sorry
+am i sorry dude
+am sorry i dude
+sorry am i dude
+sorry i am dude
+i sorry am dude
+i dude am sorry
+
+i was in hurry (10.2)
+i in hurry was
+i hurry was in
+was hurry i in
+was in hurry i
+was i in huryy
+hurry i was in
+hurry in was i
+huryy was i in
+
+turn your light on
+light on turn your
+light on your turn
+turn light your own
+turn your on light
+your on light turn
+your light on turn
+
+I live in India
+I India live in
+I in live India
+live INdia I in
+live I in India
+live India in I
+in India I live
+in live I india
+India I live in
+India live in I
+
+I study in america
+I in america study
+I america in study
+america i study in
+america study i in
+america in i study
+in america i study
+in study i america
+in i study america
+
+
+1. {'what';'time';'is';'it';'I';'have';'to';'go'};
+
+2. {'pick';'your';'first';'stick';'and';'then';'tell';'me'};
+
+3. {'tell';'me';'about';'it';'how';'much';'you';'care'};
+
+4. {'i';'bought';'a';'car';'did';'you';'bought';'car'};
+
+5. {'what';'an';'amazing';'car';'take';'me';'in';'car'};
+
+6. {'give';'me';'that';'pen';'this';'pen';'is';'amazing'};
+
+7. {'hey';'how';'are';'you';'you';'look';'amazing';'today'};
+
+8. {'does';'it';'make';'sense';'to';'do';'it';'dude'};
+
+9. {'dude';'lets';'do';'it';'trying';'other';'new';'cars'};
+
+10. {'dude';'i';'am';'sorry';'i';'was';'in';'hurry'};
+
+11. {'turn';'your';'light';'on';'to';'do';'it';'dude'};
+
+12. {'what';'can';'I';'do';'to';'make';'upto';'you'};
+
+13. {'I';'live';'in';'India';'but';'study';'in';'America'};
+
+14. {'how';'much';'you';'care';'to';'do';'it';'dude'};
+
+15. {'if';'this';'pen';'is';'amazing';'then';'tell';'me'};
+
+16. {'I';'live';'in';'america';'but';'study';'in';'India'};
+
+17. {'pick';'your';'first';'car';'to';'do';'it';'dude'};
+
+18. {'turn';'your';'light';'on';'and';'then';'tell';'me'};
+
+19. {'I';'live';'in';'India';'where';'I';' have';'car'}; 
+
+20. {'dude';'i';'am';'sorry';'this';'pen';'is';'amazing'}
+
+  
