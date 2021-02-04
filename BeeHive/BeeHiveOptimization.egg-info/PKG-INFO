@@ -1,0 +1,345 @@
+Metadata-Version: 2.1
+Name: BeeHiveOptimization
+Version: 1.0.4
+Summary: Implementation of beehive method (particle swarm optimization) for global optimization of multidimentional functions
+Home-page: https://github.com/PasaOpasen/BeehiveMethod
+Author: Demetry Pascal
+Author-email: qtckpuhdsa@gmail.com
+License: MIT
+Description: [![PyPI
+        version](https://badge.fury.io/py/BeeHiveOptimization.svg)](https://pypi.org/project/BeeHiveOptimization/)
+        [![Downloads](https://pepy.tech/badge/BeeHiveOptimization)](https://pepy.tech/project/BeeHiveOptimization)
+        [![Downloads](https://pepy.tech/badge/BeeHiveOptimization/month)](https://pepy.tech/project/BeeHiveOptimization)
+        [![Downloads](https://pepy.tech/badge/BeeHiveOptimization/week)](https://pepy.tech/project/BeeHiveOptimization)
+        
+        [![Gitter](https://badges.gitter.im/BeehiveMethod/community.svg)](https://gitter.im/BeehiveMethod/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+        
+        # Beehive method
+        ```
+        pip install BeeHiveOptimization
+        ```
+        Implementation of **beehive method** (*particle swarm optimization*) for global optimization of multidimentional functions. It's rewrite of [my C#-implementation](https://github.com/PasaOpasen/MathClasses#swarm-algorithm)
+        
+        - [Beehive method](#beehive-method)
+          - [Steps of algorithm](#steps-of-algorithm)
+            - [0 step: creating a function](#0-step-creating-a-function)
+            - [1st step: creating bees](#1st-step-creating-bees)
+            - [2nd step: create hive and get result](#2nd-step-create-hive-and-get-result)
+          - [Ways to get best solution](#ways-to-get-best-solution)
+          - [Animations of working](#animations-of-working)
+        - [See also](#see-also)
+        
+        
+        ## Steps of algorithm
+        
+        ### 0 step: creating a function
+        
+        Your target function should get a numpy array and return float number.
+        
+        ```python
+        
+        f1 = lambda arr: arr[0]+arr[1]/(1+arr[0])+arr[2]*arr[3]
+        
+        # convertion to numpy->float function
+        
+        def target(x,y,z,q):
+          return x**2+y**2*z/q
+        
+        f2 = lambda arr: target(arr[0], arr[1], arr[2], arr[3])
+        
+        ```
+        
+        The method seeks the global minimum of target function. If u want to find global maximum, use this idea:
+        
+        ```python
+        
+        f_tmp = lambda arr: -target(arr)
+        
+        #
+        # ... find global min
+        #
+        
+        tagret_result = -global_min
+        
+        ```
+        
+        
+        ### 1st step: creating bees
+        
+        U should create random bees (points) on the scope of the function definition. There are several ways:
+        
+        ```python
+        
+        
+        from BeeHiveOptimization import Bees, Hive, BeeHive, TestFunctions, RandomPuts
+        
+        import numpy as np
+        
+        # 1st step is to create bees
+        
+        np.random.seed(1)
+        
+        # it's just numpy array with shape bees_count_x_dim
+        
+        arr = np.random.uniform(low = -3, high = 5, size = (10,3))
+        
+        # width parameter means the maximum range of random begging speeds
+        
+        bees = Bees(arr, width = 0.2)
+        
+        bees.show()
+        
+        #Current bees' positions:
+        #[[ 0.33617604  2.76259595 -2.999085  ]
+        # [-0.58133942 -1.82595287 -2.26129124]
+        # [-1.50991831 -0.23551418  0.17413979]
+        # [ 1.31053387  0.35355612  2.481756  ]
+        # [-1.364382    4.02493949 -2.78089925]
+        # [ 2.36374008  0.33843842  1.46951863]
+        # [-1.87690449 -1.41518809  3.40595655]
+        # [ 4.74609261 -0.49260657  2.53858093]
+        # [ 4.01111322  4.15685331 -2.31964631]
+        # [-2.68756173 -1.64135664  4.02514003]]
+        #
+        #Current bees' speeds:
+        #[[-0.08033063 -0.01577847  0.09157791]
+        # [ 0.00663306  0.03837542 -0.03689687]
+        # [ 0.03730019  0.06692513 -0.09634234]
+        # [ 0.05002886  0.09777222  0.04963313]
+        # [-0.0439112   0.05785587 -0.0793548 ]
+        # [-0.01042129  0.0817191  -0.04127717]
+        # [-0.04244493 -0.07399429 -0.09612661]
+        # [ 0.03576711 -0.05767438 -0.04689067]
+        # [-0.00168537 -0.08932749  0.01482352]
+        # [-0.07065429  0.01786111  0.03995167]]
+        
+        # u aslo can create bees by random generator like () --> random numpy array (point)
+        
+        bees = Bees.get_Bees_from_randomputs(count = 10, random_gen = RandomPuts.Normal(mean = 1, std = 0.1, size = 2), width = 0.3)
+        
+        bees.show()
+        
+        #Current bees' positions:
+        #[[0.98081644 0.9112371 ]
+        # [0.92528417 1.16924546]
+        # [1.00508078 0.93630044]
+        # [1.01909155 1.21002551]
+        # [1.0120159  1.06172031]
+        # [1.03001703 0.96477502]
+        # [0.88574818 0.96506573]
+        # [0.97911058 1.05866232]
+        # [1.08389834 1.09311021]
+        # [1.02855873 1.08851412]]
+        #
+        #Current bees' speeds:
+        #[[ 0.07528273 -0.0453305 ]
+        # [-0.06902163  0.11876587]
+        # [-0.02157264  0.13945201]
+        # [ 0.04903245  0.03650872]
+        # [-0.11557621  0.13484678]
+        # [-0.01502636  0.02351688]
+        # [-0.02755896 -0.07889191]
+        # [ 0.12101386  0.02210385]
+        # [-0.1491389   0.03514347]
+        # [-0.05200653  0.00811743]]
+        
+        ```
+        
+        ### 2nd step: create hive and get result
+        
+        ```python
+        
+        
+        bees = Bees(np.random.normal(loc = 2, scale = 2, size = (100,3)), width = 3)
+        
+        func = lambda arr: TestFunctions.Parabol(arr-3)
+        
+            
+        hive = Hive(bees, 
+                    func, 
+                    parallel = False, # use parallel evaluating of functions values for each bee? (recommented for heavy functions, f. e. integtals) 
+                    verbose = True) # show info about hive 
+        
+        #total bees: 100
+        #best value (at beggining): 0.45406041997965585
+        
+        # getting result
+        
+        best_result, best_position = hive.get_result(max_step_count = 25, # maximun count of iteraions
+                              max_fall_count = 6, # maximum count of continious iterations without better result
+                              w = 0.3, fp = 2, fg = 5, # parameters of algorithm
+                              latency = 1e-9, # if new_result/old_result > 1-latency then it was the iteration without better result
+                              verbose = True # show the progress
+                              )
+        
+        #new best value = 0.22369081290807669 after 4 iteration
+        #new best value = 0.20481778141411794 after 5 iteration
+        #new best value = 0.2036698385729661 after 6 iteration
+        #new best value = 0.15570778532180615 after 7 iteration
+        #new best value = 0.06772538042802272 after 8 iteration
+        #new best value = 0.06060365350244633 after 9 iteration
+        #new best value = 0.048967304902866424 after 10 iteration
+        #new best value = 0.035531597911666886 after 11 iteration
+        #new best value = 0.018238258030885895 after 12 iteration
+        #new best value = 0.007999184438461721 after 13 iteration
+        #new best value = 0.007095161331114254 after 14 iteration
+        #new best value = 0.006010424290536399 after 15 iteration
+        #new best value = 0.0054592185233458875 after 16 iteration
+        #new best value = 0.003526411943370142 after 17 iteration
+        #new best value = 0.003212115031845861 after 18 iteration
+        #new best value = 0.001246361699255375 after 19 iteration
+        #new best value = 0.0011705559906451679 after 20 iteration
+        #new best value = 0.0010476941319986334 after 21 iteration
+        #new best value = 0.0006265651258711051 after 22 iteration
+        #new best value = 0.00041912821521993736 after 23 iteration
+        #new best value = 0.0003037094325696652 after 24 iteration
+        #new best value = 0.0002523002561426299 after 25 iteration
+        
+        
+        
+        # u also can use this code (without creating a hive)
+        
+        best_result, best_position = BeeHive.Minimize(func, bees, 
+                         max_step_count = 100, max_fall_count = 30, 
+                         w = 0.3, fp = 2, fg = 5, latency = 1e-9, 
+                         verbose = False, parallel = False)
+        
+        
+        ```
+        
+        ## Ways to get best solution
+        
+        To get real global minimum u should use this algorithm with more bees, bigger ```max_step_count```, bigger ``` max_fall_count``` several parameters ```w, fp, fg```:
+        
+        ```python
+        
+        
+        # to get best solution
+        
+        
+        func = lambda arr: TestFunctions.Rastrigin(arr) + TestFunctions.Shvel(arr) + 1 / (1 + np.sum(np.abs(arr)))
+        
+        for w in (0.1,0.3,0.5,0.8):
+            for fp in (1, 2, 3, 4.5):
+                for fg in (3, 5, 8, 15):
+                    
+                    # 200 bees, 10 dimentions
+                    bees = Bees(np.random.uniform(low = -100, high = 100, size = (200, 10) ))
+                    
+                    best_val, _ = BeeHive.Minimize(func, bees, 
+                         max_step_count = 200, max_fall_count = 70, 
+                         w = 2, fp = fp, fg = fg, latency = 1e-9, 
+                         verbose = False, parallel = False)
+                    
+                    print(f'best val by w = {w}, fp = {fp}, fg = {fg} is {best_val}')
+        
+        
+        #best val by w = 0.1, fp = 1, fg = 3 is 6428.695769232477
+        #best val by w = 0.1, fp = 1, fg = 5 is 32.52712233771301
+        #best val by w = 0.1, fp = 1, fg = 8 is 160.08392341144406
+        #best val by w = 0.1, fp = 1, fg = 15 is 687.6266727861189
+        #best val by w = 0.1, fp = 2, fg = 3 is 24.21891968781912
+        #best val by w = 0.1, fp = 2, fg = 5 is 49.44330907798958
+        #best val by w = 0.1, fp = 2, fg = 8 is 184.83187118199487
+        #best val by w = 0.1, fp = 2, fg = 15 is 185.51770584709303
+        #best val by w = 0.1, fp = 3, fg = 3 is 79.76934143653314
+        #best val by w = 0.1, fp = 3, fg = 5 is 47.26493469211696
+        #best val by w = 0.1, fp = 3, fg = 8 is 184.8646381092168
+        #best val by w = 0.1, fp = 3, fg = 15 is 160.27503370261758
+        #best val by w = 0.1, fp = 4.5, fg = 3 is 85.60089227083901
+        #best val by w = 0.1, fp = 4.5, fg = 5 is 108.62418480388155
+        #best val by w = 0.1, fp = 4.5, fg = 8 is 171.2798284181892
+        #best val by w = 0.1, fp = 4.5, fg = 15 is 551.7224618400166
+        #best val by w = 0.3, fp = 1, fg = 3 is 6483.765801924292
+        #best val by w = 0.3, fp = 1, fg = 5 is 8.002321991449135
+        #best val by w = 0.3, fp = 1, fg = 8 is 108.94659371003644
+        #best val by w = 0.3, fp = 1, fg = 15 is 47.079602126734684
+        #best val by w = 0.3, fp = 2, fg = 3 is 26.014123389174156
+        #best val by w = 0.3, fp = 2, fg = 5 is 18.29385998055267
+        #best val by w = 0.3, fp = 2, fg = 8 is 166.411456895688
+        #best val by w = 0.3, fp = 2, fg = 15 is 250.8512847429756
+        #best val by w = 0.3, fp = 3, fg = 3 is 212.89122853639924
+        #best val by w = 0.3, fp = 3, fg = 5 is 282.19775766847954
+        #best val by w = 0.3, fp = 3, fg = 8 is 78.26449685551408
+        #best val by w = 0.3, fp = 3, fg = 15 is 201.77855256657307
+        #best val by w = 0.3, fp = 4.5, fg = 3 is 101.7205867717656
+        #best val by w = 0.3, fp = 4.5, fg = 5 is 39.181243373144405
+        #best val by w = 0.3, fp = 4.5, fg = 8 is 31.339807579184082
+        #best val by w = 0.3, fp = 4.5, fg = 15 is 136.71496136204559
+        #best val by w = 0.5, fp = 1, fg = 3 is 7966.104488676415
+        #best val by w = 0.5, fp = 1, fg = 5 is 31.85174765332643
+        #best val by w = 0.5, fp = 1, fg = 8 is 119.51737439099381
+        #best val by w = 0.5, fp = 1, fg = 15 is 343.21190707573186
+        #best val by w = 0.5, fp = 2, fg = 3 is 19.69118760870259
+        #best val by w = 0.5, fp = 2, fg = 5 is 355.5573149722314
+        #best val by w = 0.5, fp = 2, fg = 8 is 124.35986298683065
+        #best val by w = 0.5, fp = 2, fg = 15 is 159.73058691572118
+        #best val by w = 0.5, fp = 3, fg = 3 is 91.73431812681028
+        #best val by w = 0.5, fp = 3, fg = 5 is 348.8643367168582
+        #best val by w = 0.5, fp = 3, fg = 8 is 103.67897134960793
+        #best val by w = 0.5, fp = 3, fg = 15 is 239.28420706187788
+        #best val by w = 0.5, fp = 4.5, fg = 3 is 128.31342837632542
+        #best val by w = 0.5, fp = 4.5, fg = 5 is 184.85393346379036
+        #best val by w = 0.5, fp = 4.5, fg = 8 is 24.808161917042987
+        #best val by w = 0.5, fp = 4.5, fg = 15 is 151.67171420308466
+        #best val by w = 0.8, fp = 1, fg = 3 is 11473.562212656598
+        #best val by w = 0.8, fp = 1, fg = 5 is 60.83786609973994
+        #best val by w = 0.8, fp = 1, fg = 8 is 136.37066252443586
+        #best val by w = 0.8, fp = 1, fg = 15 is 384.96175871884816
+        #best val by w = 0.8, fp = 2, fg = 3 is 12.05219722035246
+        #best val by w = 0.8, fp = 2, fg = 5 is 157.38773631834732
+        #best val by w = 0.8, fp = 2, fg = 8 is 480.3721790650163
+        #best val by w = 0.8, fp = 2, fg = 15 is 122.24297005195243
+        #best val by w = 0.8, fp = 3, fg = 3 is 94.49827014281807
+        #best val by w = 0.8, fp = 3, fg = 5 is 227.97483895242695
+        #best val by w = 0.8, fp = 3, fg = 8 is 155.60665206056973
+        #best val by w = 0.8, fp = 3, fg = 15 is 253.34803362736002
+        #best val by w = 0.8, fp = 4.5, fg = 3 is 64.920748391647
+        #best val by w = 0.8, fp = 4.5, fg = 5 is 73.96529195451255
+        #best val by w = 0.8, fp = 4.5, fg = 8 is 28.47149810229648
+        #best val by w = 0.8, fp = 4.5, fg = 15 is 130.0584088063038
+        
+        ```
+        
+        
+        ## Animations of working
+        
+        ![1](https://github.com/PasaOpasen/BeehiveMethod/blob/master/images/Shvel%20function_movie.gif)
+        
+        ![1](https://github.com/PasaOpasen/BeehiveMethod/blob/master/images/Shvel%20function%20with%20noise_movie.gif)
+        
+        ![1](https://github.com/PasaOpasen/BeehiveMethod/blob/master/images/Rastrigin%20function_movie.gif)
+        
+        
+        ![1](https://github.com/PasaOpasen/BeehiveMethod/blob/master/images/Rastrigin%20function%20(2d)_movie.gif)
+        
+        ![1](https://github.com/PasaOpasen/BeehiveMethod/blob/master/images/Rastrigin%20function%20from%20normal%20dist.%20start%20(2d)_movie.gif)
+        
+        ![1](https://github.com/PasaOpasen/BeehiveMethod/blob/master/images/Rastrigin%20function%20with%20noise%20(2d)_movie.gif)
+        
+        ![1](https://github.com/PasaOpasen/BeehiveMethod/blob/master/images/Shvel%20function%20(2d)_movie.gif)
+        
+        ![1](https://github.com/PasaOpasen/BeehiveMethod/blob/master/images/Shvel%20function%20with%20noise%20(2d)_movie.gif)
+        
+        # See also
+        
+        It can be very useful to use also:
+        
+        * [OppOpPopInit](https://github.com/PasaOpasen/opp-op-pop-init#population-initializers) package for initialize population and using opposition learning strategy
+        * [OptimizationTestFunctions](https://github.com/PasaOpasen/OptimizationTestFunctions) package for handle several classic test functions
+        
+        
+        
+        
+        
+Keywords: beehive_method,optimization,function-optimization,stochastic-optimization,swarm particle,particle swarm optimization
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Description-Content-Type: text/markdown
